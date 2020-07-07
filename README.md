@@ -167,8 +167,18 @@ RESPONSE (200)
 
 kita akan mendapatkan data tambahan didalam object user yaitu "files" yang sudah disetting menggunakan Object Transformer
 
-Selamat mencoba 
 
+value pada setiap files yang berupa url memiliki query parameter yaitu "access_id" yang telah di generate setiap kali dibutuhkan
+
+".../api/Storage/Retrieve/...?access_id=5893f4b76b7a43...."
+
+access_id tersebut berfungsi sebagai key supaya client dapat menerima response file dari server sebelum access_id tersebut expired
+
+---
+
+mungkin ini bukan Best Practice,dalam pemanggilan file karena setiap kali mengakses endpoint "/api/Storage/Retrieve/{id}" server harus melakukan query berdasarkan ID dari file yang didapat dari parameter.
+
+tapi disini berfokus pada url file yang bisa expired 
 
 
 
