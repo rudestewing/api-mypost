@@ -17,15 +17,19 @@ gunakan file postman yang sudah disediakan supaya enak kalo mau cobain
 
 [Download filenya disini](https://github.com/rudestewing/api-mypost/blob/master/mypost.postman_collection-1.json)
 
+---
 
+## Penjelasan singkat
 
-#### Penjelasan singkat
+### 1. membuat data user / registrasi 
 
-1. membuat data user / registrasi 
+`POST`
 ```js
-POST : /api/Auth/CreateUser
+/api/Auth/CreateUser
+```
 
-BODY
+`BODY`
+```js
 {
     "email": "kuncoro@mail.com",
     "name": "Kuncoro Kunch",
@@ -33,25 +37,30 @@ BODY
     "password_confirmation": "123456"
 }
 
-
-RESPONSE (200)
+```
+`RESPONSE`
+```js
 {
     "message": "success"
 }
 
 ```
 
-2. get access token
-```js
-POST : /api/Auth/GetAccessToken
+### 2. get access token
 
-BODY
+`POST`
+```js
+/api/Auth/GetAccessToken
+```
+`BODY`
+```js
 {
     "email": "kuncoro@mail.com",
     "password": "123456"
 }
-
-RESPONSE (200)
+```
+`RESPONSE`
+```js
 {
     "data": {
         "access_token": "1|A5KOL3BGFNM4d6RIssdf1gq5G7vKKZts7xe1XNKUtT3y0y94iYecIi9No8QQuymlxZBBrQK7CApFdOIH"
@@ -60,12 +69,15 @@ RESPONSE (200)
 
 ```
 
-3. get data user profile
+### 3. get data user profile
+
+`GET`
 ```js
-GET : /api/User/GetProfile
+/api/User/GetProfile
+```
 
-RESPONSE (200)
-
+`RESPONSE`
+```js
 {
     "data": {
         "id": 1,
@@ -90,17 +102,23 @@ RESPONSE (200)
 
 ```
 
-4. Sekarang kita akan update file "avatar" dan "id_card" untuk profile user 
+### 4. Update file "avatar" dan "id_card" untuk profile user 
 
 upload file yang akan digunakan terlebih dahulu dengan body Multipart/form-data
-```js
-POST: /api/Storage/Upload
 
+`POST [multipart/form-data]`
+```js
+/api/Storage/Upload
+```
+
+`BODY`
+```js
 "type" => "image"
 "file" => [filenya]
+```
 
-
-RESPONSE (200)
+`RESPONSE`
+```js
 {
     "data": {
         "url": null,
@@ -110,28 +128,32 @@ RESPONSE (200)
 }
 ```
 
-5. ketika udah mendapatkan response dari upload file, lalu gunakan ID file tersebut
+### 5. ketika udah mendapatkan response dari upload file, lalu gunakan ID file tersebut
 
+`PATCH`
 ```js
-PATCH: /api/User/UpdateProfile
-
-BODY
+/api/User/UpdateProfile
+```
+`BODY`
+````js
 {
     "name": "Kuncoro Kunch Edited",
     "email": "kuncoro@mail.com",
     "avatar_file_id":  "1793d3a047864877b48c7cf0193f43ff1594110320",
     "id_card_file_id": "8d1bd28b372c490a8176ded024b660a31594110376"
 }
+````
 
-
-RESPONSE (200)
+`RESPONSE`
+```js
 {
     "message": "success"
 }
 ```
 
-6. Kemudian lihat data profile user lagi dengan hit endpoint yang sama seperti no.3
+### 6. Kemudian lihat data profile user lagi dengan hit endpoint yang sama seperti no.3
 
+`RESPONSE`
 ```js
 {
     "data": {
@@ -168,8 +190,7 @@ RESPONSE (200)
 }
 ```
 
-kita akan mendapatkan data tambahan didalam object user yaitu "files" yang sudah disetting menggunakan Object Transformer
-
+response akan mendapatkan data tambahan didalam object user yaitu "files" yang sudah disetting menggunakan Object Transformer.
 
 value pada setiap files yang berupa url memiliki query parameter yaitu "access_id" yang telah di generate setiap kali dibutuhkan
 
@@ -179,10 +200,9 @@ access_id tersebut berfungsi sebagai key supaya client dapat menerima response f
 
 ---
 
-mungkin ini bukan Best Practice,dalam pemanggilan file karena setiap kali mengakses endpoint "/api/Storage/Retrieve/{id}" server harus melakukan query berdasarkan ID dari file yang didapat dari parameter.
+mungkin ini bukan Best Practice dalam pemanggilan file karena setiap kali mengakses endpoint "/api/Storage/Retrieve/{id}" server harus melakukan query untuk mendapat file yang dibutuhkan berdasarkan ID dari yang didapat dari parameter.
 
-tapi disini berfokus pada url file yang bisa expired 
-
+tapi disini fokus pada url file url yang tidak bisa sembarangan di akses karena akan ada waktu expired yang telah disetting pada Cache
 
 
 
