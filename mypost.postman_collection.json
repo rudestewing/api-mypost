@@ -67,7 +67,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Kuncoro Kunch Edited\",\n    \"email\": \"kuncoro@mail.com\",\n    \"avatar_file_id\":  \"1793d3a047864877b48c7cf0193f43ff1594110320\",\n    \"id_card_file_id\": \"8d1bd28b372c490a8176ded024b660a31594110376\"\n}",
+							"raw": "{\n    \"name\": \"Kuncoro Kunch Edited\",\n    \"email\": \"kuncoro@mail.com\",\n    \"avatar_file\":  \"1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png\",\n    \"id_card_file\": \"1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -291,7 +291,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"judul\",\n    \"body\": \"badan\",\n    \"image_file_id\": \"022e772764644c4189951db390a744371594102448\"\n}"
+							"raw": "{\n    \"title\": \"judul\",\n    \"body\": \"badan\",\n    \"image_file\": \"d63cMZUIrclz91cw78Q30GH17DYTf1s4O0CY40Y65Lp.png\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/Post/CreatePost",

@@ -1,4 +1,4 @@
-<!-- # Mengamankan file url dengan access ID memanfaatkan fitur Cache pada php Laravel
+# Mengamankan file url dengan access ID memanfaatkan fitur Temporary Signed URL pada laravel
 
 ### cara menjalankan 
 
@@ -15,7 +15,7 @@ Jalankan beberapa command
 
 gunakan file postman yang sudah disediakan supaya enak kalo mau cobain
 
-[Download filenya disini](https://github.com/rudestewing/api-mypost/blob/master/mypost.postman_collection-1.json)
+[Download filenya disini](https://github.com/rudestewing/api-mypost/blob/master/mypost.postman_collection.json)
 
 ---
 
@@ -94,8 +94,8 @@ gunakan file postman yang sudah disediakan supaya enak kalo mau cobain
             "email_verified_at": null,
             "created_at": "2020-07-07T08:15:04.000000Z",
             "updated_at": "2020-07-07T08:15:04.000000Z",
-            "avatar_file_id": null,
-            "id_card_file_id": null
+            "avatar_file": null,
+            "id_card_file": null
         }
     }
 }
@@ -121,14 +121,15 @@ upload file yang akan digunakan terlebih dahulu dengan body Multipart/form-data
 ```js
 {
     "data": {
-        "url": null,
-        "type": "image",
-        "id": "1793d3a047864877b48c7cf0193f43ff1594110320"
+        "path": "tp7Y0J3FHX9p14n9e8MRawUQ5I9z1qWp2Rkg91PD4JC.png",
+        "url": {
+            "original": "http://api-mypost.test/api/Storage/tp7Y0J3FHX9p14n9e8MRawUQ5I9z1qWp2Rkg91PD4JC.png?expires=1594143819&signature=36cb609ad3054b5a3903a38e9788008d66d43e1d547ee44b39c9789f4655667c"
+        }
     }
 }
 ```
 
-Ketika sudah mendapatkan response dari upload file, gunakan ID file tersebut.
+Ketika sudah mendapatkan response dari upload file, selanjutnya gunakan Value pada path file yang telah didapat
 
 ### 5. Update data user
 
@@ -141,8 +142,8 @@ Ketika sudah mendapatkan response dari upload file, gunakan ID file tersebut.
 {
     "name": "Kuncoro Kunch Edited",
     "email": "kuncoro@mail.com",
-    "avatar_file_id":  "1793d3a047864877b48c7cf0193f43ff1594110320",
-    "id_card_file_id": "8d1bd28b372c490a8176ded024b660a31594110376"
+    "avatar_file":  "1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png",
+    "id_card_file": "1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png"
 }
 ````
 
@@ -164,18 +165,18 @@ Ketika sudah mendapatkan response dari upload file, gunakan ID file tersebut.
         "email": "kuncoro@mail.com",
         "files": {
             "avatar": {
-                "original": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510",
-                "xs": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=xs",
-                "sm": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=sm",
-                "md": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=md",
-                "lg": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=lg"
+                "original": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&signature=b2b08ba8bbd1c5f21cd6790d95ae0110636a6fc9be3894eb786a5a4e45a9ac83",
+                "xs": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=xs&signature=de8a6d17aa98d13aee581b5964fa090178454d705644d408f8b4edd3f5013e9c",
+                "sm": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=sm&signature=c14e7afdf055f56fd245c83fb2d050fce9999cd28b32df2aa3b23fa557f4eac4",
+                "md": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=md&signature=3b60abfd22264b7411ab86a5eba0a4a57b45a9e32ff4fdadde3ee02edffca5af",
+                "lg": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=lg&signature=6fa8689a80a6472f8b5632262304f673f4e127273680eee5e6172478031cebaf"
             },
             "id_card": {
-                "original": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510",
-                "xs": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=xs",
-                "sm": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=sm",
-                "md": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=md",
-                "lg": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=lg"
+                "original": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&signature=b2b08ba8bbd1c5f21cd6790d95ae0110636a6fc9be3894eb786a5a4e45a9ac83",
+                "xs": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=xs&signature=de8a6d17aa98d13aee581b5964fa090178454d705644d408f8b4edd3f5013e9c",
+                "sm": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=sm&signature=c14e7afdf055f56fd245c83fb2d050fce9999cd28b32df2aa3b23fa557f4eac4",
+                "md": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=md&signature=3b60abfd22264b7411ab86a5eba0a4a57b45a9e32ff4fdadde3ee02edffca5af",
+                "lg": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=lg&signature=6fa8689a80a6472f8b5632262304f673f4e127273680eee5e6172478031cebaf"
             }
         },
         "original": {
@@ -183,10 +184,26 @@ Ketika sudah mendapatkan response dari upload file, gunakan ID file tersebut.
             "name": "Kuncoro Kunch Edited",
             "email": "kuncoro@mail.com",
             "email_verified_at": null,
-            "created_at": "2020-07-07T08:15:04.000000Z",
-            "updated_at": "2020-07-07T08:26:29.000000Z",
-            "avatar_file_id": "1793d3a047864877b48c7cf0193f43ff1594110320",
-            "id_card_file_id": "8d1bd28b372c490a8176ded024b660a31594110376"
+            "created_at": "2020-07-07T17:01:46.000000Z",
+            "updated_at": "2020-07-07T17:03:35.000000Z",
+            "avatar_file": "1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png",
+            "id_card_file": "1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png",
+            "files": {
+                "avatar_file": {
+                    "original": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&signature=b2b08ba8bbd1c5f21cd6790d95ae0110636a6fc9be3894eb786a5a4e45a9ac83",
+                    "xs": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=xs&signature=de8a6d17aa98d13aee581b5964fa090178454d705644d408f8b4edd3f5013e9c",
+                    "sm": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=sm&signature=c14e7afdf055f56fd245c83fb2d050fce9999cd28b32df2aa3b23fa557f4eac4",
+                    "md": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=md&signature=3b60abfd22264b7411ab86a5eba0a4a57b45a9e32ff4fdadde3ee02edffca5af",
+                    "lg": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=lg&signature=6fa8689a80a6472f8b5632262304f673f4e127273680eee5e6172478031cebaf"
+                },
+                "id_card_file": {
+                    "original": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&signature=b2b08ba8bbd1c5f21cd6790d95ae0110636a6fc9be3894eb786a5a4e45a9ac83",
+                    "xs": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=xs&signature=de8a6d17aa98d13aee581b5964fa090178454d705644d408f8b4edd3f5013e9c",
+                    "sm": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=sm&signature=c14e7afdf055f56fd245c83fb2d050fce9999cd28b32df2aa3b23fa557f4eac4",
+                    "md": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=md&signature=3b60abfd22264b7411ab86a5eba0a4a57b45a9e32ff4fdadde3ee02edffca5af",
+                    "lg": "http://api-mypost.test/api/Storage/1SvA6JpZ48uBA58u306d1SIBYnKJo9GXzv4kvi1Z5F1.png?expires=1594143882&size=lg&signature=6fa8689a80a6472f8b5632262304f673f4e127273680eee5e6172478031cebaf"
+                }
+            }
         }
     }
 }
@@ -194,21 +211,4 @@ Ketika sudah mendapatkan response dari upload file, gunakan ID file tersebut.
 
 response akan mendapatkan data tambahan didalam object user yaitu "files" yang sudah disetting menggunakan Object Transformer.
 
-value pada setiap files yang berupa url memiliki query parameter yaitu "access_id" yang telah di generate setiap kali dibutuhkan
-
-".../api/Storage/Retrieve/...?access_id=5893f4b76b7a43...."
-
-access_id tersebut berfungsi sebagai key supaya client dapat menerima response file dari server sebelum access_id tersebut expired
-
----
-
-mungkin ini bukan Best Practice dalam pemanggilan file karena setiap kali mengakses endpoint "/api/Storage/Retrieve/{id}" server harus melakukan query untuk mendapat file yang dibutuhkan berdasarkan ID dari yang didapat dari parameter.
-
-tapi disini fokus pada url file url yang tidak bisa sembarangan di akses karena akan ada waktu expired yang telah disetting pada Cache
-
-
-
-
-
-
- -->
+value pada setiap files yang berupa url adalah url yang telah di parsing menggunakan Temporary Signed URL jadi url tidak akan bisa di akses setiap saat karena memiliki waktu expired
