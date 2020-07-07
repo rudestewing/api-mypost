@@ -18,6 +18,8 @@ class CreateFileResizesTable extends Migration
             $table->string('size')->nullable();
             $table->text('path')->nullable();
             $table->timestamps();
+
+            $table->foreign('file_id')->references('id')->on('files');
         });
     }
 

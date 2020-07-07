@@ -28,11 +28,19 @@ class GetAccessTokenController extends Controller
             ->first();
 
         if(!$user) {
-            return response()->json([], Response::HTTP_NOT_FOUND);
+            return response()->json([
+                'errors' => [
+                    'email' => ['not found']
+                ]
+            ], Response::HTTP_NOT_FOUND);
         }
 
         if(!Hash::check($request->password, $user->password)) {
-            return response()->json([], Response::HTTP_UNAUTHORIZED);
+            return response()->json([
+                'errors' => [
+                    'email' => ['credentials didn`t match']
+                ]
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
         return response()->json([

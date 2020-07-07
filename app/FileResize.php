@@ -20,16 +20,4 @@ class FileResize extends Model
     {
         return $this->belongsTo(\App\File::class, 'file_id');
     }
-
-    public function getUrlAttribute($value)
-    {
-        $accessId = Str::uuid()->toString();
-        Cache::put($accessId, 1, now()->addMinutes(30));
-
-        return route('Api.Storage.Retrieve', [
-            'id' => $this->file_id,
-            'size' => $this->size,
-            'access_id' => $accessId,
-        ]);
-    }
 }
