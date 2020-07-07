@@ -19,14 +19,14 @@ class CreatePostController extends Controller
         $request->validate([
             'title' => 'required|string',
             'body' => 'required|string',
-            'image_file_id' => 'required|string|file_exists_check'
+            'image_file' => 'required|string|file_exists_check'
         ]);
 
         $user = $request->user();
         $post = $user->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
-            'image_file_id' => $request->image_file_id,
+            'image_file' => $request->image_file,
         ]);
 
         return response()->json([
