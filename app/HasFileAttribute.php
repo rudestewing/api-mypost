@@ -14,7 +14,9 @@ trait HasFileAttribute
 
         $data = [];
         foreach ($this->fileAttributes as $item) {
-            $data[str_replace('_file_id', '', $item)] = File::query()
+            $keyName = str_replace('_file_id', '', $item);
+            
+            $data[$keyName] = File::query()
                 ->select(['id', 'path', 'type'])
                 ->with(['fileResizes'])
                 ->find($this->{$item});
@@ -22,13 +24,10 @@ trait HasFileAttribute
         return $data;
     }
 
-    // foreach ($this->fileAttributes as $item) {
-    //     $data[str_replace('_file_id', '', $item)] = route('Api.Storage.Retrieve', [
-    //         'id' => $this->{$item},
-    //         'access_id' => $accessId
-    //     ]);
-    // }
-    // return $data;
+    public function scopeWithFiles($query) 
+    {
+
+    }
 
     public function hasFile($foreignKey)
     {

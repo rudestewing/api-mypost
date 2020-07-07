@@ -31,28 +31,38 @@ class RetrieveController extends Controller
         if(!$accessId) {
             return response()->json([
                 'message' => 'unauthorized'
-            ], 403);
+            ], 404);
         }
 
         $request->validate([
-            'size' => 'nullable|in:sm,md,xl,original'
+            'dimensions' => 'nullable|in:xs,sm,md,lg'
         ]);
 
-        if($request->size) {
-            // get spesific size from file
-        }
-
         $file = File::find($id);
-        if(!$file || !Storage::disk('local')->exists(optional($file)->path)) {
+        if(!$file) {
             return response()->json([], 404);
         }
 
-        $realPath = storage_path("app/{$file->path}"); // local storage
-        $file = FacadesFile::get($realPath);
-        $type = FacadesFile::mimeType($realPath);
+        if($request->dimensions) {
+            $spesificSize = $file->fileResizes()->where('dimensions', $request->dimensions)->first();
+            return $this->render($spesificSize->path);
+        }
 
-        $response = Response::make($file, 200);
-        $response->header('Content-Type', $type);
+        return $this->render($file->path);
+    }
+
+
+    private function render($path)
+    {
+        if(!Storage::disk('local')->exists($path)) {
+            return response()->json([], 404);
+        }
+
+        $realPath = storage_path("app/{$path}"); // local storage
+
+        $response = Response::make(FacadesFile::get($realPath), 200);
+        $response->header('Content-Type', FacadesFile::mimeType($realPath));
+
         return $response;
     }
 }

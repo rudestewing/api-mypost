@@ -15,7 +15,7 @@ class CreateFileResizesTable extends Migration
     {
         Schema::create('file_resizes', function (Blueprint $table) {
             $table->string('file_id');
-            $table->string('size')->nullable();
+            $table->string('dimensions')->nullable();
             $table->text('path')->nullable();
             $table->timestamps();
         });

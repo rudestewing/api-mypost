@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Api\Storage;
 use App\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
@@ -102,25 +101,32 @@ class UploadController extends Controller
 
     }
 
-    private function processResizeImage(File $file)
+    private function processResizeImage(File $file): void
     {
-        $sizes = [
+        $dimensions = [
             'xs' => 80, 
             'sm' => 120, 
             'md' => 200, 
             'lg' => 500
         ];
 
-
-        foreach ($sizes as $size => $height) {
+        foreach ($dimensions as $size => $height) {
             $realPath = storage_path('app/'.$file->path);
-            $img = \Image::make($realPath);
+            $img = Image::make($realPath);
             
+            $img->resize(null, $height, function($constraint) {
+                $constraint->aspectRatio(); 
+            });
 
-            $file->fileResizes()->create([
-                'size' => $size,
-                'path' => $file->path
-            ]);
+            $resizedFile = $img->stream('jpg');
+            $path = "{$size}/{$file->path}";
+
+            if(Storage::disk('local')->put($path, $resizedFile)) {
+                $file->fileResizes()->create([
+                    'dimensions' => $size,
+                    'path' => $path
+                ]);
+            }
         }
     }
 
