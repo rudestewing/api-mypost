@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Post;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CreatePostController extends Controller
 {
@@ -15,6 +16,22 @@ class CreatePostController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'body' => 'required|string',
+            'image_file_id' => 'required|string|file_exists_check'
+        ]);
+
+        $user = $request->user();
+        $post = $user->posts()->create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image_file_id' => $request->image_file_id,
+        ]);
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $post,
+        ], Response::HTTP_CREATED);
     }
 }

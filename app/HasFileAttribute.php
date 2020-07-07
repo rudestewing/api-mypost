@@ -6,11 +6,16 @@ use Illuminate\Support\Facades\Cache;
 
 trait HasFileAttribute
 {
+    private function generateUrl(array $data)
+    {
+        return route('Api.Storage.Retrieve', $data);
+    }
+
     private $sizeTypes = [
         'xs', 'sm', 'md', 'lg'
     ];
 
-    public function getFilesAttribute($value) 
+    public function getFilesAttribute() 
     {
         $accessId = Str::uuid().Str::random(5);
         
@@ -22,11 +27,11 @@ trait HasFileAttribute
             
             $data[$keyName] = [
                 'id' => $id = $this->{$item},
-                'url' => route('Api.Storage.Retrieve', ['id' => $this->{$item}, 'access_id' => $accessId]),
+                'url' => $this->generateUrl(['id' => $this->{$item}, 'access_id' => $accessId]),
                 'sizes' => collect($this->sizeTypes)->map(function($sizeType) use ($accessId, $id) {
                     return [
                         'size' => $sizeType,
-                        'url' => route('Api.Storage.Retrieve', ['id' => $id, 'size' => $sizeType, 'access_id' => $accessId])
+                        'url' => $this->generateUrl(['id' => $id, 'size' => $sizeType, 'access_id' => $accessId])
                     ];
                 })
             ];

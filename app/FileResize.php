@@ -12,10 +12,6 @@ class FileResize extends Model
 
     public $incrementing = false;
 
-    protected $appends = [
-        'url'
-    ];
-
     public function file()
     {
         return $this->belongsTo(\App\File::class, 'file_id');

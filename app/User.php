@@ -38,13 +38,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = [
-        'files'
-    ];
 
     protected $fileAttributes = [
         'avatar_file_id',
         'id_card_file_id'
+    ];
+
+    protected $appends = [
+        'files'
     ];
 
     public function posts()

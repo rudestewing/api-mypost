@@ -14,10 +14,6 @@ class File extends Model
         'id' => 'string',
     ];
 
-    protected $appends = [
-        'url'
-    ];
-
     public $incrementing = false;
 
     protected $primaryKey = 'id';
@@ -49,22 +45,6 @@ class File extends Model
 
     public function fileResizes()
     {
-        return $this->hasMany(\App\FileResize::class, 'file_id')->select([
-            'file_id', 'path', 'size' 
-        ]);
+        return $this->hasMany(\App\FileResize::class, 'file_id');
     }
-
-    public function getUrlAttribute($value)
-    {
-        $accessId = Str::uuid()->toString();
-        Cache::put($accessId, 1, now()->addMinutes(30));
-
-        return route('Api.Storage.Retrieve', [
-            'id' => $this->id,
-            'access_id' => $accessId    
-        ]);
-    }
-
-
-
 }
