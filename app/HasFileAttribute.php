@@ -23,15 +23,4 @@ trait HasFileAttribute
         }
         return $data;
     }
-
-    public function scopeWithFiles($query) 
-    {
-
-    }
-
-    public function hasFile($foreignKey)
-    {
-        return $this->belongsTo(\App\File::class, $foreignKey)->with(['fileResizes']);
-    }
-
 }

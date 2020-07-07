@@ -51,9 +51,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Post::class, 'user_id');
     }
-
-    public function avatar()
-    {
-        // $this->resizes
-    }
 }
