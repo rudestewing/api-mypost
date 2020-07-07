@@ -1,4 +1,4 @@
-# Mengamankan file url dengan access ID memanfaatkan fitur Temporary Signed URL pada laravel
+# Mengamankan file url dengan memanfaatkan fitur Temporary Signed URL pada laravel
 
 ### cara menjalankan 
 
