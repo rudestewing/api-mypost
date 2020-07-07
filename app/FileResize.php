@@ -28,7 +28,7 @@ class FileResize extends Model
 
         return route('Api.Storage.Retrieve', [
             'id' => $this->file_id,
-            'dimensions' => $this->dimensions,
+            'size' => $this->size,
             'access_id' => $accessId,
         ]);
     }

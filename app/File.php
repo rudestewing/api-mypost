@@ -50,7 +50,7 @@ class File extends Model
     public function fileResizes()
     {
         return $this->hasMany(\App\FileResize::class, 'file_id')->select([
-            'file_id', 'path', 'dimensions' 
+            'file_id', 'path', 'size' 
         ]);
     }
 

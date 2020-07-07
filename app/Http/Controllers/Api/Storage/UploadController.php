@@ -123,7 +123,7 @@ class UploadController extends Controller
 
             if(Storage::disk('local')->put($path, $resizedFile)) {
                 $file->fileResizes()->create([
-                    'dimensions' => $size,
+                    'size' => $size,
                     'path' => $path
                 ]);
             }

@@ -35,7 +35,7 @@ class RetrieveController extends Controller
         }
 
         $request->validate([
-            'dimensions' => 'nullable|in:xs,sm,md,lg'
+            'size' => 'nullable|in:xs,sm,md,lg'
         ]);
 
         $file = File::find($id);
@@ -43,8 +43,8 @@ class RetrieveController extends Controller
             return response()->json([], 404);
         }
 
-        if($request->dimensions) {
-            $spesificSize = $file->fileResizes()->where('dimensions', $request->dimensions)->first();
+        if($request->size) {
+            $spesificSize = $file->fileResizes()->where('size', $request->size)->first();
             return $this->render($spesificSize->path);
         }
 
