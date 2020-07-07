@@ -26,6 +26,7 @@ Route::namespace('Api\Storage')
         ->prefix('Storage')
         ->group(function() {
             Route::get('Retrieve/{id?}', 'RetrieveController')->name('Api.Storage.Retrieve');
+            Route::get('{path?}', 'GetByPathController')->name('Api.Storage.Get');
         });
 
 Route::namespace('Api')

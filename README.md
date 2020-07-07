@@ -1,4 +1,4 @@
-# Mengamankan file url dengan access ID memanfaatkan fitur Cache pada php Laravel
+<!-- # Mengamankan file url dengan access ID memanfaatkan fitur Cache pada php Laravel
 
 ### cara menjalankan 
 
@@ -211,4 +211,4 @@ tapi disini fokus pada url file url yang tidak bisa sembarangan di akses karena 
 
 
 
-
+ -->

@@ -6,27 +6,23 @@ use Illuminate\Support\Facades\Cache;
 
 trait FileResponseGenerator
 {
-    protected $fileAccessId;
 
-    public function generateFilrUrl($id = null, $type = 'image')
+    public function generateFilrUrl($path = null, $type = 'image')
     {
-        $this->fileAccessId = str_replace('-', '', Str::uuid()->toString().time());
-        Cache::put($this->fileAccessId, 1, now()->addMinutes(5));
+        // $this->fileAccessId = str_replace('-', '', Str::uuid()->toString().time());
+        // Cache::put($this->fileAccessId, 1, now()->addMinutes(5));
         
         return array_merge(
-            $id ? [
-                'original' => route('Api.Storage.Retrieve', [
-                    'id' => $id,
-                    'access_id' => $this->fileAccessId
-                ])
+            $path ? [
+                'original' => $this->generateStorageSignedUrl($path)
             ] : [],
-            $type == 'image' ? $this->generateImageUrl($id) : []
+            $type == 'image' ? $this->generateImageUrl($path) : []
         );
     }
 
-    private function generateImageUrl($id = null): array
+    private function generateImageUrl($path = null): array
     {
-        if(!$id) {
+        if(!$path) {
             return [];
         }
 
@@ -34,12 +30,23 @@ trait FileResponseGenerator
 
         $data = [];
         foreach ($sizes as $size) {
-            $data[$size] = route('Api.Storage.Retrieve', [
-                'id' => $id,
-                'access_id' => $this->fileAccessId,
-                'size' => $size,
+            $data[$size] = $this->generateStorageSignedUrl($path, [
+                'size' => $size
             ]);
         }
         return $data;
+    }
+
+    private function generateStorageSignedUrl($path, $queryParams = [])
+    {
+        return route(
+            'Api.Storage.Get', 
+            array_merge(
+                [
+                    'path' => $path
+                ],
+                $queryParams
+            )
+        );
     }
 }

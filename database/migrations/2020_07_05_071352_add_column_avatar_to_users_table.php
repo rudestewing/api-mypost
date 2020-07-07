@@ -14,11 +14,8 @@ class AddColumnAvatarToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar_file_id')->nullable();
-            $table->string('id_card_file_id')->nullable();
-
-            $table->foreign('avatar_file_id')->references('id')->on('files');
-            $table->foreign('id_card_file_id')->references('id')->on('files');
+            $table->string('avatar_file')->nullable();
+            $table->string('id_card_file')->nullable();
         });
     }
 
@@ -30,13 +27,6 @@ class AddColumnAvatarToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign([
-                'avatar_file_id'
-            ]);
-            $table->dropForeign([
-                'id_card_file_id'
-            ]);
-
             $table->dropColumn('avatar_file_id');
             $table->dropColumn('id_card_file_id');
 

@@ -65,6 +65,7 @@ class UploadController extends Controller
             
             return response()->json([
                 'data' => $file->only([
+                    'path',
                     'url',
                     'type',
                     'id'

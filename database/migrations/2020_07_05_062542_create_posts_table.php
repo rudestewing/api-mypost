@@ -18,10 +18,8 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('title')->nullable();
             $table->text('body')->nullable();
-            $table->string('image_file_id')->nullable();
+            $table->string('image_file')->nullable();
             $table->timestamps();
-
-            $table->foreign('image_file_id')->references('id')->on('files');
         });
     }
 

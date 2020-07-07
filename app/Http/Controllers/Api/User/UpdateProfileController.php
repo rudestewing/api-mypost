@@ -23,8 +23,8 @@ class UpdateProfileController extends Controller
             'name' => 'required|string',
             'password' => 'nullable|string|min:6|max:18|confirmed',
             'old_password' => 'required_with:password|string',
-            'avatar_file_id' => 'nullable|string|file_exists_check',
-            'id_card_file_id' => 'nullable|string|file_exists_check',
+            'avatar_file' => 'nullable|string|file_exists_check',
+            'id_card_file' => 'nullable|string|file_exists_check',
         ]);
 
         $user = $request->user();
@@ -33,8 +33,8 @@ class UpdateProfileController extends Controller
             $user->update([
                 'email' => $request->email,
                 'name' => $request->name,
-                'avatar_file_id' => $request->avatar_file_id,
-                'id_card_file_id' => $request->id_card_file_id,
+                'avatar_file' => $request->avatar_file,
+                'id_card_file' => $request->id_card_file,
             ]);
 
             if($request->password) {

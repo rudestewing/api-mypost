@@ -17,7 +17,6 @@ class GenerateCacheAccessMiddleware
      */
     public function handle($request, Closure $next)
     {
-        Cache::put(Str::uuid(), 1, now()->addMinutes(10));
         return $next($request);
     }
 }

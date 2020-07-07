@@ -27,9 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('file_exists_check', function($attribute, $value, $parameters, $validation) {
-            $file = File::find($value);
-
-            if($file && Storage::disk('local')->exists(optional($file)->path)) {
+            if(Storage::disk('local')->exists($value)) {
                 return true; 
             }
 

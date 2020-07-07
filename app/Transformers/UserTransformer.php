@@ -16,8 +16,8 @@ class UserTransformer extends TransformerAbstract
             'name' => $user->name,
             'email' => $user->email,
             'files' => [
-                'avatar' => $this->generateFilrUrl($user->avatar_file_id, 'image'),
-                'id_card' => $this->generateFilrUrl($user->avatar_file_id, 'image'),
+                'avatar' => $this->generateFilrUrl($user->avatar_file, 'image'),
+                'id_card' => $this->generateFilrUrl($user->id_card_file, 'image'),
             ],
             'original' => $user,
         ];
