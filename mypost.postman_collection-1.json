@@ -67,7 +67,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"john cena\",\n    \"email\": \"rudestewing@gmail.com\",\n    \"avatar_file_id\":  \"47846534ec824c3b843f1c97039ef55a1594096851\",\n    \"id_card_file_id\": \"47846534ec824c3b843f1c97039ef55a1594096851\"\n}",
+							"raw": "{\n    \"name\": \"Kuncoro Kunch Edited\",\n    \"email\": \"kuncoro@mail.com\",\n    \"avatar_file_id\":  \"1793d3a047864877b48c7cf0193f43ff1594110320\",\n    \"id_card_file_id\": \"8d1bd28b372c490a8176ded024b660a31594110376\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

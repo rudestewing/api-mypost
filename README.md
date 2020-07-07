@@ -15,6 +15,9 @@ Jalankan beberapa command
 
 gunakan file postman yang sudah disediakan supaya enak kalo mau cobain
 
+[Download filenya disini](https://github.com/rudestewing/api-mypost/blob/master/mypost.postman_collection-1.json)
+
+
 
 #### Penjelasan singkat
 
