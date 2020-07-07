@@ -26,7 +26,7 @@ class PostTransformer extends TransformerAbstract
             'title' => $post->title,
             'body' => $post->body,
             'files' => [
-                'image' => $this->generateFilrUrl($post->image_file_id)
+                'image' => $this->generateFilrUrl($post->image_file)
             ],
             'original' => $post
         ];
