@@ -38,11 +38,6 @@ class File extends Model
         return $uuid;
     }
 
-    public function getIdAttribute($value)
-    {
-        return (string) $value;
-    }
-
     public function fileResizes()
     {
         return $this->hasMany(\App\FileResize::class, 'file_id');
