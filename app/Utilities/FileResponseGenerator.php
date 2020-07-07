@@ -39,7 +39,7 @@ trait FileResponseGenerator
     {
         return URL::temporarySignedRoute(
             'Api.Storage.Get',
-            now()->addSeconds(5),
+            now()->addMinutes(10),
             array_merge(
                 [
                     'path' => $path,
