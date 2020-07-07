@@ -47,15 +47,5 @@ trait FileResponseGenerator
                 $queryParams
             )
         );
-
-        return route(
-            'Api.Storage.Get', 
-            array_merge(
-                [
-                    'path' => $path
-                ],
-                $queryParams
-            )
-        );
     }
 }
