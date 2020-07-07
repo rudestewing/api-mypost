@@ -20,7 +20,7 @@ class GetByPathController extends Controller
      */
     public function __invoke(Request $request, $path = null)
     {
-        if(!$path) {
+        if(!$path || !$request->hasValidSignature()) {
             return response()->json([], 404);
         }
 

@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
+    use HasFileAttributes;
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +36,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $fileAttributes = [
+        'avatar_file' => 'image',
+        'id_card_file' => 'image'
+    ];
+
+    protected $appends = [
+        'files'
     ];
 
     public function posts()

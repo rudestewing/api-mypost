@@ -3,15 +3,13 @@ namespace App\Utilities;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\URL;
 
 trait FileResponseGenerator
 {
 
     public function generateFilrUrl($path = null, $type = 'image')
     {
-        // $this->fileAccessId = str_replace('-', '', Str::uuid()->toString().time());
-        // Cache::put($this->fileAccessId, 1, now()->addMinutes(5));
-        
         return array_merge(
             $path ? [
                 'original' => $this->generateStorageSignedUrl($path)
@@ -39,6 +37,17 @@ trait FileResponseGenerator
 
     private function generateStorageSignedUrl($path, $queryParams = [])
     {
+        return URL::temporarySignedRoute(
+            'Api.Storage.Get',
+            now()->addSeconds(5),
+            array_merge(
+                [
+                    'path' => $path,
+                ],
+                $queryParams
+            )
+        );
+
         return route(
             'Api.Storage.Get', 
             array_merge(
