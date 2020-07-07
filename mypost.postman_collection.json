@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "05095d02-dd2d-410b-b690-3ebfae12d8ae",
+		"name": "mypost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"description": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/User/GetProfile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"User",
+								"GetProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"description": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"john cena\",\n    \"email\": \"rudestewing@gmail.com\",\n    \"avatar_file_id\":  \"47846534ec824c3b843f1c97039ef55a1594096851\",\n    \"id_card_file_id\": \"47846534ec824c3b843f1c97039ef55a1594096851\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/User/UpdateProfile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"User",
+								"UpdateProfile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "storage",
+			"item": [
+				{
+					"name": "upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"description": "Bearer {{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "image",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/rudisetiawan/Desktop/sample images/images/red.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Storage/Upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Storage",
+								"Upload"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"kuncoro@mail.com\",\n    \"name\": \"Kuncoro Kunch\",\n    \"password\": \"123456\",\n    \"password_confirmation\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Auth/CreateUser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Auth",
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get access token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"kuncoro@mail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Auth/GetAccessToken",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Auth",
+								"GetAccessToken"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "fetch",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Post/FetchPost",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Post",
+								"FetchPost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1b385ce5-bf01-4cee-a88d-f0ab56258fb0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"description": "Bearer {{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"judul\",\n    \"body\": \"badan\",\n    \"image_file_id\": \"022e772764644c4189951db390a744371594102448\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Post/CreatePost",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Post",
+								"CreatePost"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

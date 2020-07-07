@@ -1,85 +1,179 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Mengamankan file url dengan access ID memanfaatkan fitur Cache pada php Laravel
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### cara menjalankan 
 
-## About Laravel
+setting .env untuk database seperti biasa (gak ada settingan aneh aneh kok)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Jalankan beberapa command
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```js
+- composer install
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- php artisan migrate
+```
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+gunakan file postman yang sudah disediakan supaya enak kalo mau cobain
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+#### Penjelasan singkat
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1. membuat data user / registrasi 
+```js
+POST : /api/Auth/CreateUser
 
-### Premium Partners
+BODY
+{
+    "email": "kuncoro@mail.com",
+    "name": "Kuncoro Kunch",
+    "password": "123456",
+    "password_confirmation": "123456"
+}
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
 
-### Community Sponsors
+RESPONSE (200)
+{
+    "message": "success"
+}
 
-<a href="https://op.gg"><img src="http://opgg-static.akamaized.net/icon/t.rectangle.png" width="150"></a>
+```
 
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [云软科技](http://www.yunruan.ltd/)
+2. get access token
+```js
+POST : /api/Auth/GetAccessToken
 
-## Contributing
+BODY
+{
+    "email": "kuncoro@mail.com",
+    "password": "123456"
+}
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+RESPONSE (200)
+{
+    "data": {
+        "access_token": "1|A5KOL3BGFNM4d6RIssdf1gq5G7vKKZts7xe1XNKUtT3y0y94iYecIi9No8QQuymlxZBBrQK7CApFdOIH"
+    }
+}
 
-## Code of Conduct
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. get data user profile
+```js
+GET : /api/User/GetProfile
 
-## Security Vulnerabilities
+RESPONSE (200)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+{
+    "data": {
+        "id": 1,
+        "name": "Kuncoro Kunch",
+        "email": "kuncoro@mail.com",
+        "files": {
+            "avatar": [],
+            "id_card": []
+        },
+        "original": {
+            "id": 1,
+            "name": "Kuncoro Kunch",
+            "email": "kuncoro@mail.com",
+            "email_verified_at": null,
+            "created_at": "2020-07-07T08:15:04.000000Z",
+            "updated_at": "2020-07-07T08:15:04.000000Z",
+            "avatar_file_id": null,
+            "id_card_file_id": null
+        }
+    }
+}
 
-## License
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Sekarang kita akan update file "avatar" dan "id_card" untuk profile user 
+
+upload file yang akan digunakan terlebih dahulu dengan body Multipart/form-data
+```js
+POST: /api/Storage/Upload
+
+"type" => "image"
+"file" => [filenya]
+
+
+RESPONSE (200)
+{
+    "data": {
+        "url": null,
+        "type": "image",
+        "id": "1793d3a047864877b48c7cf0193f43ff1594110320"
+    }
+}
+```
+
+5. ketika udah mendapatkan response dari upload file, lalu gunakan ID file tersebut
+
+```js
+PATCH: /api/User/UpdateProfile
+
+BODY
+{
+    "name": "Kuncoro Kunch Edited",
+    "email": "kuncoro@mail.com",
+    "avatar_file_id":  "1793d3a047864877b48c7cf0193f43ff1594110320",
+    "id_card_file_id": "8d1bd28b372c490a8176ded024b660a31594110376"
+}
+
+
+RESPONSE (200)
+{
+    "message": "success"
+}
+```
+
+6. Kemudian lihat data profile user lagi dengan hit endpoint yang sama seperti no.3
+
+```js
+{
+    "data": {
+        "id": 1,
+        "name": "Kuncoro Kunch Edited",
+        "email": "kuncoro@mail.com",
+        "files": {
+            "avatar": {
+                "original": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510",
+                "xs": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=xs",
+                "sm": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=sm",
+                "md": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=md",
+                "lg": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=2fd7cd27bebc49aa9245adece3c5d8db1594110510&size=lg"
+            },
+            "id_card": {
+                "original": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510",
+                "xs": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=xs",
+                "sm": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=sm",
+                "md": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=md",
+                "lg": "http://api-mypost.test/api/Storage/Retrieve/1793d3a047864877b48c7cf0193f43ff1594110320?access_id=5893f4b76b7a43dc82e69a4133c0cb041594110510&size=lg"
+            }
+        },
+        "original": {
+            "id": 1,
+            "name": "Kuncoro Kunch Edited",
+            "email": "kuncoro@mail.com",
+            "email_verified_at": null,
+            "created_at": "2020-07-07T08:15:04.000000Z",
+            "updated_at": "2020-07-07T08:26:29.000000Z",
+            "avatar_file_id": "1793d3a047864877b48c7cf0193f43ff1594110320",
+            "id_card_file_id": "8d1bd28b372c490a8176ded024b660a31594110376"
+        }
+    }
+}
+```
+
+kita akan mendapatkan data tambahan didalam object user yaitu "files" yang sudah disetting menggunakan Object Transformer
+
+Selamat mencoba 
+
+
+
+
+
+
+
+
+

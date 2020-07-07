@@ -49,7 +49,7 @@ class UpdateProfileController extends Controller
         }); 
 
         return response()->json([
-            'data' => $user,
-        ]);
+            'message' => 'success',
+        ], 200);
     }
 }

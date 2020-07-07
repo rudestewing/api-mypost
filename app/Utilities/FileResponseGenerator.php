@@ -8,24 +8,28 @@ trait FileResponseGenerator
 {
     protected $fileAccessId;
 
-    public function generateFilrUrl($id, $type = 'image')
+    public function generateFilrUrl($id = null, $type = 'image')
     {
         $this->fileAccessId = str_replace('-', '', Str::uuid()->toString().time());
         Cache::put($this->fileAccessId, 1, now()->addMinutes(5));
         
         return array_merge(
-            [
+            $id ? [
                 'original' => route('Api.Storage.Retrieve', [
                     'id' => $id,
                     'access_id' => $this->fileAccessId
                 ])
-            ],
+            ] : [],
             $type == 'image' ? $this->generateImageUrl($id) : []
         );
     }
 
-    private function generateImageUrl($id): array
+    private function generateImageUrl($id = null): array
     {
+        if(!$id) {
+            return [];
+        }
+
         $sizes = ['xs', 'sm', 'md', 'lg'];
 
         $data = [];
