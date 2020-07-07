@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api\Post;
 
-use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use App\Transformers\PostTransformer;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Resource\Collection;
 
 class FetchPostController extends Controller
 {
@@ -17,6 +20,20 @@ class FetchPostController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return response()->json(Post::paginate(), Response::HTTP_OK);
+        $paginator = Post::paginate();
+        $posts = $paginator->getCollection();
+        $resource = new Collection($posts, new PostTransformer);
+        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
+        
+        return response()->json(
+            fractal()
+                ->collection($paginator->getCollection())
+                ->transformWith(new PostTransformer())
+                ->paginateWith(new IlluminatePaginatorAdapter($paginator))
+                ->toArray(),
+            // $this->fractal->createData($resource)->toArray(),
+            200
+        );
+        // return $this->fractal->createData($resource)->toArray();
     }
 }
