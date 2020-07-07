@@ -128,7 +128,9 @@ upload file yang akan digunakan terlebih dahulu dengan body Multipart/form-data
 }
 ```
 
-### 5. ketika udah mendapatkan response dari upload file, lalu gunakan ID file tersebut
+Ketika sudah mendapatkan response dari upload file, gunakan ID file tersebut.
+
+### 5. Update data user
 
 `PATCH`
 ```js
