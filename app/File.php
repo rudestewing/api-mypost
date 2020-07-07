@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Utilities\FileResponseGenerator;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
 class File extends Model
 {
+    use FileResponseGenerator;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -41,5 +44,10 @@ class File extends Model
     public function fileResizes()
     {
         return $this->hasMany(\App\FileResize::class, 'file_id');
+    }
+
+    public function getUrlAttribute()
+    {
+        return $this->generateFilrUrl($this->path, null);
     }
 }

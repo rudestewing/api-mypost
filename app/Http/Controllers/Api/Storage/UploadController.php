@@ -67,8 +67,6 @@ class UploadController extends Controller
                 'data' => $file->only([
                     'path',
                     'url',
-                    'type',
-                    'id'
                 ])
             ], Response::HTTP_CREATED);
             
