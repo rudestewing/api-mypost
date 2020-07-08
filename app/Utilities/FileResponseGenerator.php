@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\URL;
 trait FileResponseGenerator
 {
 
-    public function generateFilrUrl($path = null, $type = 'image')
+    public function generateFilrUrl($path = null, $type = null)
     {
         return array_merge(
             $path ? [

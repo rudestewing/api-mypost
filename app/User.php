@@ -43,10 +43,6 @@ class User extends Authenticatable
         'id_card_file' => 'image'
     ];
 
-    protected $appends = [
-        'files'
-    ];
-
     public function posts()
     {
         return $this->hasMany(\App\Post::class, 'user_id');
