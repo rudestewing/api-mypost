@@ -2,14 +2,10 @@
 namespace App\Transformers;
 
 use App\Post;
-use App\User;
-use App\Transformers\PosterTransfomer;
-use App\Utilities\FileResponseGenerator;
 use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
 {
-    use FileResponseGenerator;
 
     protected $availableIncludes = [
         'poster'

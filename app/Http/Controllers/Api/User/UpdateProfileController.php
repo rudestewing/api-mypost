@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UpdateProfileController extends Controller
@@ -16,17 +17,8 @@ class UpdateProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(UpdateProfileRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users,email,'.$request->user()->id,
-            'name' => 'required|string',
-            'password' => 'nullable|string|min:6|max:18|confirmed',
-            'old_password' => 'required_with:password|string',
-            'avatar_file' => 'nullable|string|file_exists_check',
-            'id_card_file' => 'nullable|string|file_exists_check',
-        ]);
-
         $user = $request->user();
 
         DB::transaction(function() use ($request, &$user) {

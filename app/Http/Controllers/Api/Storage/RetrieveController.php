@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Storage;
 
+use App\Domain\Storage\Actions\RetrieveAction;
 use App\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,48 +19,8 @@ class RetrieveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, $id = null)
+    public function __invoke(Request $request, $path = null, RetrieveAction $action)
     {
-        if(!$id) {
-            return response()->json([
-                'message' => 'file not found'
-            ], 404);
-        }
-        
-        $accessId = Cache::get($request->access_id);
-        
-        if(!$accessId) {
-            return response()->json([
-                'message' => 'unauthorized'
-            ], 404);
-        }
-
-
-        $file = File::find($id);
-        if(!$file) {
-            return response()->json([], 404);
-        }
-
-        if($request->size && in_array($request->size, ['xs', 'sm', 'md', 'lg'])) {
-            $spesificSize = $file->fileResizes()->where('size', $request->size)->first();
-            return $this->render($spesificSize->path);  
-        }
-
-        return $this->render($file->path);
-    }
-
-
-    private function render($path)
-    {
-        if(!Storage::disk('local')->exists($path)) {
-            return response()->json([], 404);
-        }
-
-        $realPath = storage_path("app/{$path}"); // local storage
-
-        $response = Response::make(FacadesFile::get($realPath), 200);
-        $response->header('Content-Type', FacadesFile::mimeType($realPath));
-
-        return $response;
+        return $action->excute($request, $path);
     }
 }

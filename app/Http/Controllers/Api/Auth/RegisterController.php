@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Domain\Auth\Actions\RegisterAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GetAccessTokenRequest;
-use App\Domain\Auth\Actions\GetAccessTokenAction;
+use App\Http\Requests\Auth\RegisterRequest;
+use Illuminate\Http\Request;
 
-class GetAccessTokenController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,8 +16,8 @@ class GetAccessTokenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(
-        GetAccessTokenRequest $request, 
-        GetAccessTokenAction $action
+        RegisterRequest $request, 
+        RegisterAction $action
     )
     {
         return $action->excute($request);

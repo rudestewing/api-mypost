@@ -1,24 +1,14 @@
 <?php
+namespace App\Domain\Storage\Actions;
 
-namespace App\Http\Controllers\Api\Storage;
-
-
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\File as FacadesFile;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
-
-class GetByPathController extends Controller
+class RetrieveAction
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request, $path = null)
+    public function excute(Request $request, $path)
     {
         if(!$path || !$request->hasValidSignature()) {
             return response()->json([], 404);
@@ -39,8 +29,8 @@ class GetByPathController extends Controller
 
         $realPath = storage_path("app/{$path}"); // local storage
 
-        $response = Response::make(FacadesFile::get($realPath), 200);
-        $response->header('Content-Type', FacadesFile::mimeType($realPath));
+        $response = Response::make(File::get($realPath), 200);
+        $response->header('Content-Type', File::mimeType($realPath));
 
         return $response;
     }
